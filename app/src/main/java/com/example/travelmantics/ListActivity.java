@@ -94,6 +94,7 @@ public class ListActivity extends AppCompatActivity {
         rvDeals.setLayoutManager(dealsLayoutManager);
 
         FirebaseUtil.attachListener();
+        this.showMenu();
     }
 
     public void showMenu(){
