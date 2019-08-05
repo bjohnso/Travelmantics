@@ -50,32 +50,34 @@ public class FirebaseUtil {
 
     public static void checkAdmin(String uid){
         FirebaseUtil.isAdmin = false;
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference reference = mFirebaseDatabase.getReference().child(("administrators")).child(uid);
         ChildEventListener listener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 FirebaseUtil.isAdmin = true;
+                Toast.makeText(caller, "Welcome Admin", Toast.LENGTH_LONG).show();
                 caller.showMenu();
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                caller.showMenu();
+
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                caller.showMenu();
+                Toast.makeText(caller, "Defeated", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                caller.showMenu();
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                caller.showMenu();
+                Toast.makeText(caller, "Defeated", Toast.LENGTH_LONG).show();
             }
         };
         reference.addChildEventListener(listener);
@@ -92,13 +94,16 @@ public class FirebaseUtil {
             mAuthStateListener = new FirebaseAuth.AuthStateListener() {
                 @Override
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                    if (firebaseAuth.getCurrentUser() == null)
+                    if (firebaseAuth.getCurrentUser() == null) {
                         FirebaseUtil.signIn();
+                        Toast.makeText(callingActivity.getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
+                    }
                     else {
                         String userId = firebaseAuth.getUid();
                         FirebaseUtil.checkAdmin(userId);
+                        Toast.makeText(callingActivity.getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
                     }
-                    Toast.makeText(callingActivity.getBaseContext(), "Welcome!", Toast.LENGTH_LONG).show();
+
                 }
             };
             connectStorage();

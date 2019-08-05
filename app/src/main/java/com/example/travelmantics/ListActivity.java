@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,28 +26,24 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
-    List<TravelDeal> deals;
-    private FirebaseDatabase mFirbaseDatabase;
-    private DatabaseReference mDatabaseReference;
-    private ChildEventListener mChildEventListener;
+    private static FirebaseUtil mFirbaseUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+        this.showMenu();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_activity_menu, menu);
-
         MenuItem insertMenu = menu.findItem(R.id.insert_menu);
         if (FirebaseUtil.isAdmin == true)
             insertMenu.setVisible(true);
         else
             insertMenu.setVisible(false);
-
         return true;
     }
 
@@ -94,10 +91,10 @@ public class ListActivity extends AppCompatActivity {
         rvDeals.setLayoutManager(dealsLayoutManager);
 
         FirebaseUtil.attachListener();
-        this.showMenu();
     }
 
     public void showMenu(){
-        invalidateOptionsMenu();
+        Toast.makeText(this, "Reloading Menu", Toast.LENGTH_LONG).show();
+        this.invalidateOptionsMenu();
     }
 }
