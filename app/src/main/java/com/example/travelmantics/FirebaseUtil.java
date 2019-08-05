@@ -67,7 +67,7 @@ public class FirebaseUtil {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                Toast.makeText(caller, "Defeated", Toast.LENGTH_LONG).show();
+
             }
 
             @Override
@@ -77,7 +77,7 @@ public class FirebaseUtil {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(caller, "Defeated", Toast.LENGTH_LONG).show();
+
             }
         };
         reference.addChildEventListener(listener);

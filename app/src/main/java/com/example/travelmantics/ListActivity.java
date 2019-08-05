@@ -26,13 +26,10 @@ import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
-    private static FirebaseUtil mFirbaseUtil;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        this.showMenu();
     }
 
     @Override
@@ -94,7 +91,6 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public void showMenu(){
-        Toast.makeText(this, "Reloading Menu", Toast.LENGTH_LONG).show();
-        this.invalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 }
